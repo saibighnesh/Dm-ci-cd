@@ -30,7 +30,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run unit tests
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew testDebugUnitTest --stacktrace
  
       - name: Decode service account key
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
