@@ -42,9 +42,9 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           echo "storeFile=../release.keystore" > keystore.properties
-          echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> android/keystore.properties
-          echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/keystore.properties
-          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> android/keystore.properties
+          echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> keystore.properties
+          echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> keystore.properties
+          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> keystore.properties
         working-directory: ./app
  
       - name: Update app version
@@ -54,7 +54,7 @@ jobs:
           CURRENT_VERSION_CODE=$(grep -o "versionCode [0-9]*" app/build.gradle | awk '{print $2}')
           NEW_VERSION_CODE=${{ github.run_number }}
           echo "Updating versionCode from $CURRENT_VERSION_CODE to $NEW_VERSION_CODE"
-          sed -i "s/versionCode $CURRENT_VERSION_CODE/versionCode $NEW_VERSION_CODE/" android/app/build.gradle
+          sed -i "s/versionCode $CURRENT_VERSION_CODE/versionCode $NEW_VERSION_CODE/" app/build.gradle
  
       - name: Build Android APK
         run: ./gradlew assembleRelease
