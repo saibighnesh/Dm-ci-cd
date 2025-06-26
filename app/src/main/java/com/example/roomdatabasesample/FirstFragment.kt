@@ -34,18 +34,22 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with (binding){
-            btnUserList.setOnClickListener{
+        binding.apply {
+            // The view ID 'btnUserList' from your original code does not exist in the
+            // generated 'FragmentFirstBinding'. The available button is 'buttonFirst'.
+            buttonFirst.setOnClickListener{
                 findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
             }
-            btnAddUser.setOnClickListener{
-
-            }
+            // The view 'btnAddUser' is also not present in your layout 'fragment_first.xml'.
+            // You might want to add it to your layout if you need it.
         }
     }
 
     fun getDBInstance(): UserDatabase {
-        return Room.databaseBuilder(requireContext(), UserDatabase::class.java, "user")
+        // This creates a builder, but doesn't build the database. You need to call .build().
+        // It's also highly recommended to make your database a singleton and inject it
+        // rather than creating it inside a Fragment, which is inefficient.
+        return Room.databaseBuilder(requireContext(), UserDatabase::class.java, "user").build()
     }
 
     override fun onDestroyView() {
