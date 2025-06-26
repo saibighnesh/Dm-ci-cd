@@ -28,6 +28,9 @@ jobs:
  
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+
+      - name: Run unit tests
+        run: ./gradlew testDebugUnitTest
  
       - name: Decode service account key
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
